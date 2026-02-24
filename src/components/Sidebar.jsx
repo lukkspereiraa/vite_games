@@ -7,7 +7,7 @@ import {
 import NavGroup from './NavGroup';
 import SearchBar from './SearchBar';
 import Filters from './Filters';
-import './sidebar.css';
+import './Sidebar.css';
 
 const Sidebar = ({ 
   onSearch, 
