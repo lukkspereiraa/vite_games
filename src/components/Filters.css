@@ -1,0 +1,49 @@
+.filters-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.filter-group {
+  position: relative;
+  display: flex;
+}
+
+.filter-select {
+  width: 100%;
+  padding: 12px 15px;
+  background: #0f111a;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font: 600 0.85rem 'Rajdhani', sans-serif;
+  letter-spacing: 1px;
+  cursor: pointer;
+  appearance: none;
+  outline: none;
+  text-transform: uppercase;
+  transition: 0.3s;
+}
+
+.filter-select:hover {
+  border-color: var(--neon-blue);
+}
+
+.filter-select:focus {
+  border-color: var(--neon-pink);
+}
+
+.filter-select option {
+  background: #1a1b26;
+}
+
+.filter-group::after {
+  content: '▼';
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}

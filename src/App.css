@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --bg-dark: #0f111a;
+  --bg-card: #1a1b26;
+  --bg-sidebar: #16161e;
+  --neon-blue: #00d4ff;
+  --neon-pink: #ff79c6;
+  --text-primary: #cad3f5;
+  --text-secondary: #565f89;
+  --border: #24283b;
+  --sidebar-width: 280px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Layout Principal */
+.app-container {
+  display: flex; 
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1; 
+  margin-left: var(--sidebar-width);
+  padding: 40px 60px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Cabeçalho */
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 20px;
+}
+
+.header-text h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2.5rem;
+  margin: 0;
+  color: #fff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.header-text p {
+  color: var(--text-secondary);
+  margin-top: 5px;
+  font-size: 0.9rem;
+}
+
+.status-indicator {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #50fa7b;
+  border: 1px solid #50fa7b;
+  padding: 4px 12px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+}
+
+/* Botões */
+.load-more-btn {
+  display: block;
+  margin: 60px auto;
+  background: transparent;
+  color: var(--neon-pink);
+  border: 1px solid var(--neon-pink);
+  padding: 14px 40px;
+  border-radius: 4px;
+  font: 700 1rem 'Rajdhani', sans-serif;
+  cursor: pointer;
+  transition: 0.3s;
+  text-transform: uppercase;
+}
+
+.load-more-btn:hover {
+  background: var(--neon-pink);
+  color: #000;
+  box-shadow: 0 0 20px rgba(255, 121, 198, 0.4);
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .main-content { padding: 40px 30px; }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+}
