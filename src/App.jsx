@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar';
 import GameGrid from './components/GameGrid';
 import GameModal from './components/GameModal';
 import UserPanel from './components/UserPanel';
+import Notification from './components/Notification';
 import './App.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
   
   const [gameSelecionado, setGameSelecionado] = useState(null); 
   const [jogoParaOpiniao, setJogoParaOpiniao] = useState(null); 
+  const [notificacao, setNotificacao] = useState(null);
 
   const [minhaLista, setMinhaLista] = useState(() => {
     const salvo = localStorage.getItem('@GameVault:lista');
@@ -56,7 +58,9 @@ function App() {
   }, [pagina]);
 
   const adicionarABiblioteca = (jogo) => {
-    if (!minhaLista.find(item => item.id === jogo.id)) {
+    const jaExiste = minhaLista.find(item => item.id === jogo.id);
+
+    if (!jaExiste) {
       setMinhaLista(prev => [...prev, { 
         ...jogo, 
         estado: 'backlog',
@@ -66,6 +70,10 @@ function App() {
         notaPessoal: '',
         comentario: '' 
       }]);
+      
+      setNotificacao({ jogo, tipo: 'sucesso', idNotificacao: Date.now() });
+    } else {
+      setNotificacao({ jogo, tipo: 'existe', idNotificacao: Date.now() });
     }
   };
 
@@ -79,12 +87,9 @@ function App() {
     setMinhaLista(prev => prev.filter(j => j.id !== id));
   };
 
-
   const getJogosParaExibir = () => {
     if (abaAtiva === 'explorar') return jogos;
-
     let lista = [];
-
 
     switch (abaAtiva) {
       case 'biblioteca': lista = [...minhaLista]; break;
@@ -102,7 +107,6 @@ function App() {
       lista = lista.filter(j => j.name.toLowerCase().includes(busca.toLowerCase()));
     }
 
-
     if (filtros.genre) {
       lista = lista.filter(j => j.genres?.some(g => g.slug === filtros.genre));
     }
@@ -111,7 +115,6 @@ function App() {
       if (!filtros.order && abaAtiva === 'tierlist') {
         return parseFloat(b.notaPessoal) - parseFloat(a.notaPessoal);
       }
-
       switch (filtros.order) {
         case 'name': return a.name.localeCompare(b.name); 
         case '-name': return b.name.localeCompare(a.name); 
@@ -177,6 +180,19 @@ function App() {
           jogo={jogoParaOpiniao}
           onClose={() => setJogoParaOpiniao(null)}
           onUpdate={atualizarDadosPessoais}
+        />
+      )}
+
+      {notificacao && (
+        <Notification 
+          key={notificacao.idNotificacao} 
+          data={notificacao} 
+          onClose={() => setNotificacao(null)}
+          onGoToLibrary={() => {
+            setAbaAtiva('biblioteca');
+            setNotificacao(null);
+            window.scrollTo(0, 0);
+          }}
         />
       )}
     </div>

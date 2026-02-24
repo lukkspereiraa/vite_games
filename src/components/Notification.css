@@ -1,0 +1,106 @@
+.popup-notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #161822;
+  border: 1px solid #2d324d;
+  border-radius: 12px;
+  min-width: 320px;
+  overflow: hidden;
+  z-index: 10000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: slideInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.popup-content {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.popup-text h4 {
+  margin: 0;
+  color: #fff;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+.popup-text p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.75rem;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.btn-add-more, .btn-go-library {
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: 0.2s;
+}
+
+.btn-add-more {
+  background: #1a1d2e;
+  color: #fff;
+}
+
+.btn-go-library {
+  background: #00d4ff;
+  color: #0f111a;
+}
+
+.btn-go-library:hover {
+  filter: brightness(1.2);
+}
+
+.progress-bar {
+  height: 3px;
+  background: #00d4ff;
+  transition: width 0.1s linear;
+}
+
+@keyframes slideInUp {
+  from { transform: translateY(100px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ... manter o css anterior e adicionar/mudar isso: ... */
+
+.popup-notification.type-exists {
+  border-left: 4px solid #f1c40f;
+}
+
+.popup-notification.type-success {
+  border-left: 4px solid #2ecc71;
+}
+
+.type-exists .progress-bar {
+  background: #f1c40f;
+}
+
+/* Deixar o botão de ver lista combinando com o aviso se já existir */
+.type-exists .btn-go-library {
+  background: #f1c40f;
+  color: #000;
+}
+
+.popup-text p {
+  margin: 0;
+  color: #94a3b8; 
+  font-size: 0.8rem;
+}

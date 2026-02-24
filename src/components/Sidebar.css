@@ -1,3 +1,4 @@
+/* Sidebar Base */
 .sidebar {
   width: 280px;
   background: var(--bg-sidebar);
@@ -6,8 +7,66 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  z-index: 100;
+  z-index: 10000; /* Aumentado para ficar acima de tudo */
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+/* --- LOGICA MOBILE (O SEGREDO ESTÁ AQUI) --- */
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%); /* Esconde para a esquerda */
+    box-shadow: none;
+  }
+
+  /* Classe que o React vai adicionar ao clicar no botão */
+  .sidebar.mobile-open {
+    transform: translateX(0);
+    box-shadow: 10px 0 50px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Ajuste no logo para mobile */
+  .sidebar-logo {
+    padding: 30px 20px;
+  }
+}
+
+/* Botão Hambúrguer (Oculto no Desktop) */
+.mobile-menu-toggle {
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 10001;
+  background: var(--bg-sidebar);
+  border: 1px solid var(--neon-blue);
+  color: var(--neon-blue);
+  width: 45px;
+  height: 45px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: flex;
+  }
+}
+
+/* Overlay (Fundo escuro ao abrir no mobile) */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+/* --- RESTANTE DO SEU ESTILO (MANTIDO) --- */
 
 .sidebar-logo {
   padding: 40px 25px;
@@ -21,9 +80,15 @@
   margin: 0;
   letter-spacing: 2px;
   font-family: 'Rajdhani', sans-serif;
+  font-size: 1.5rem;
 }
 
 .sidebar-logo span { color: var(--neon-pink); }
+
+.sidebar-nav {
+  flex: 1;
+  overflow-y: auto; /* Permite scroll se houver muitos itens */
+}
 
 .nav-group { border-bottom: 1px solid var(--border); }
 
@@ -42,11 +107,11 @@
   max-height: 0;
   overflow: hidden;
   background: #12121a;
-  transition: 0.3s;
+  transition: 0.3s ease-out;
 }
 
 .nav-submenu.open { 
-  max-height: 500px; 
+  max-height: 800px; 
   padding: 10px 0; 
 }
 
@@ -61,10 +126,11 @@
   transition: 0.2s;
 }
 
-.menu-item:hover { color: #fff; }
+.menu-item:hover, .menu-item.active {
+  color: #fff;
+}
 
 .menu-item.active {
-  color: #fff;
   background: rgba(255, 121, 198, 0.05);
   border-right: 3px solid var(--neon-pink);
 }
@@ -102,10 +168,6 @@
   box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
 }
 
-.btn-reset-catalog svg { transition: 0.5s; }
-.btn-reset-catalog:hover svg { transform: rotate(180deg); }
-
-/* Divisor sutil */
 .search-separator {
   font-size: 0.7rem;
   color: var(--text-secondary);
@@ -113,7 +175,7 @@
   align-items: center;
   gap: 10px;
   text-transform: uppercase;
-  margin-bottom: 15px;
+  margin: 10px 0 15px;
   padding: 0 15px;
 }
 
@@ -123,4 +185,9 @@
   flex: 1;
   height: 1px;
   background: var(--border);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
