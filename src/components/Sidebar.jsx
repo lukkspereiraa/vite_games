@@ -141,7 +141,11 @@ const Sidebar = ({
             isOpen={menuAberto === 'filtros'}
             onToggle={() => toggleMenu('filtros')}
           >
-            <Filters onFilterChange={(filtros) => { onFilterChange(filtros); if(window.innerWidth < 768) setSidebarVisivel(false); }} />
+            {/*  Filters */}
+            <Filters onFilterChange={(t, v) => { 
+              onFilterChange(t, v); 
+              if(window.innerWidth < 768) setSidebarVisivel(false); 
+            }} />
           </NavGroup>
 
         </nav>
